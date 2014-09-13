@@ -1,0 +1,16 @@
+class tomcat {
+
+package { "java":
+    ensure  => present,
+  }
+
+
+  package { "tomcat7":
+    ensure  => present,
+  }
+
+  service { "tomcat7":
+    ensure  => "running",
+    require => Package["tomcat"],
+  }
+}

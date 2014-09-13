@@ -1,0 +1,50 @@
+class tomcat { 
+
+$source = 'http://mirrors.axint.net/apache/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.tar.gz',
+$package = 'apache-tomcat-7.0.42.tar.gz',
+
+package { "java":
+    ensure  => present,
+
+{
+exec { 'download-apache-tomcat-7.0.42.tar.gz':
+command => "wget $source", 
+cwd => "/home/$id",
+path => '/usr/bin/',
+}
+
+exec {'extract-apache-tomcat-7.0.42.tar.gz':
+command => "tar -xvf $package",  
+cwd => "/home/$id",
+path => '/bin/',
+require => Exec['download-apache-tomcat-7.0.42.tar.gz'],
+}
+
+exec {'remove package':
+command => "rm $package",  
+cwd => "/home/$id",
+path => '/bin/',
+require => Exec['extract-apache-tomcat-7.0.42.tar.gz']
+}
+
+## TODO change variable for shnigi
+
+file {'/home/shnigi/apache-tomcat-7.0.42/conf/tomcat-users.xml':
+ensure => file,
+content => template ('tomcat/tomcat-users.erb'),
+require => Exec['extract-apache-tomcat-7.0.42.tar.gz'],
+}
+
+## TODO fix startup
+
+exec {'start service':
+command => "sh startup.sh",
+cwd => "/home/shnigi/apache-tomcat-7.0.42/bin/",
+path => '/bin/',
+require => File['/home/shnigi/apache-tomcat-7.0.42/conf/tomcat-users.xml']
+}
+
+}
+
+
+
