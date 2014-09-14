@@ -1,7 +1,7 @@
 # tomcat
 
  This module ensures java 1.7 is installed and runs custom function to download tomcat 7.0.42, untar it,
- and then install. It checks every Puppet run to see if tomcat is still running. If not it will restart.
+ and then install it. It checks every Puppet run to see if tomcat is still running. If not it will restart.
  All the files you need are located in the manifests directory.
  
  
