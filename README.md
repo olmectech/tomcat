@@ -6,7 +6,7 @@
  
  
 - package { 'java-1.7.0-openjdk-src.x86_64':
- - ensure  => present
+- ensure  => present
  - }
 
 - exec { 'download-apache-tomcat-7.0.42.tar.gz':
