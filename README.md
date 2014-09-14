@@ -16,5 +16,5 @@
 
 - exec { 'restart-tomcat':
   - command => '/etc/init.d/tomcat start',
-  -  }
-  -}
+  - }
+-}
